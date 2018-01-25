@@ -14,6 +14,7 @@ Personally, I suggest [Notepad++](https://notepad-plus-plus.org/download/) for i
 Once opened, you should located this secion in the code located near the top of the code:
 
 ```
+#Set game information
 user = 'timetravelpenguin'
 game = 'smo'
 category = 'any'
