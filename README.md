@@ -43,7 +43,7 @@ More information can be found by looking into the speedrun.com API, which can be
 
 Once the script is completed, you will have a .txt file with each line containing something similar to:
 ```
-Year-Moneth-Day Hour:Minute:Second
+Year-Month-Day Hour:Minute:Second
 
 1	user	time
 2	user	time
