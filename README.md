@@ -37,6 +37,8 @@ query = ''
 ```
 Note that some leaderboards can be a little funky due to how they have been set up, and filtering may be a neccisary requirement for optimal results
 
+More information can be found by looking into the speedrun.com API, which can be found [here](https://github.com/speedruncomorg/api).
+
 ## Downloading
 
 The latest release can be downloaded from our [Releases Page](https://github.com/TimeTravelPenguin/Speedrun.com-Leaderboard-Exporter/releases). From here .zip files of recent builds can be found. The files can then be extracted and opened.
