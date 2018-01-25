@@ -1,4 +1,4 @@
-# Made by TimeTravelPenguin
+## Made by TimeTravelPenguin
 ## Check for updates at https://github.pengu.space
 ## Or simply visit https://pengu.space for more general stuff
 
