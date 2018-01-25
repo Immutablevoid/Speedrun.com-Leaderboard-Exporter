@@ -24,7 +24,7 @@ query = '?emulators=false'
 (Note: The *user* variable isn't currently used in this build, and is intended for exporting specific user's speedruns)
 
 Here you can modify the game, the category, and any query you wish to apply.
-This is where a little bit of research and knowladge come in. Locate your speedrun on the speedrun.com website, and find the game's ID. This is in the URL. Here I have *SMO* for Super Mario Odyssey, or, https://www.speedrun.com/smo.
+This is where a little bit of research and knowledge come in. Locate your speedrun leaderboard on the speedrun.com website, and find the game's ID. This is in the URL. Here I have *SMO* for Super Mario Odyssey, or, https://www.speedrun.com/smo.
 
 Similary, you need to find the category ID by doing a similar method. Once on the website, click on the category and find it in the URL. For example:
 * https://www.speedrun.com/smo#Any	-> category = 'any'
