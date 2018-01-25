@@ -66,7 +66,7 @@ The latest release can be downloaded from the [Releases Page](https://github.com
 
 ## Requirements
 
-As if the current build, it has the following system requirements:
+As of the current build, it has the following system requirements:
 
 [Python 3.0](https://www.python.org/downloads/) or later
 
