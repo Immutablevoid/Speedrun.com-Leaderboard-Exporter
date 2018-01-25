@@ -1,6 +1,6 @@
 # Speedrun.com Leaderboard Exporter (SLE)
 
-SLE is a basic Python script that exports basic leaderboard information for basic data analysis.
+SLE is a Python script that exports basic leaderboard information for data analysis.
 It helps to aid in the documentation of speedruns at a given time from speedrun.com
 
 ## How to use
