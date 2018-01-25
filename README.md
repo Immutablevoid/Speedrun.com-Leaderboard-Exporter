@@ -35,7 +35,7 @@ If you do not wish to filter results, clear the query to:
 ```
 query = ''
 ```
-Note that some leaderboards can be a little funky due to how they have been set up, and filtering may be a neccisary requirement for optimal results
+Note that some leaderboards can be a little funky due to how they have been set up, and filtering may be a neccisary requirement for optimal results. For more information about query types, check it out [here](https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs).
 
 More information can be found by looking into the speedrun.com API, which can be found [here](https://github.com/speedruncomorg/api).
 
