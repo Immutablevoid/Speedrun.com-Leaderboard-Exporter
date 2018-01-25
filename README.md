@@ -64,3 +64,12 @@ The latest release can be downloaded from the [Releases Page](https://github.com
 As if the current build, it has the following system requirements:
 
 [Python 3.0](https://www.python.org/downloads/) or later
+
+## Minor note
+
+The script may take a while to export, depending on the size of the leaderboard.
+Due to the way the API works, the script has a lot of trouble finding the "username" of a speedrunner.
+
+On speedrun.com, they use "user IDs", rather than "user names" on each leaderboard. So the script has to manually goto each player's URL and find their unsername. User ID's are messy. For example, my username is TimeTravelPenguin, but my user ID is y8dwlrgj.
+
+Because of this, the script has to manually find each user ID's user name, and that is unfortunately slightly slow.
