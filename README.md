@@ -57,7 +57,7 @@ Each line has each data separated by a tab space, allowing for an easy copy/past
 
 ## Downloading
 
-The latest release can be downloaded from our [Releases Page](https://github.com/TimeTravelPenguin/Speedrun.com-Leaderboard-Exporter/releases). From here .zip files of recent builds can be found. The files can then be extracted and opened.
+The latest release can be downloaded from the [Releases Page](https://github.com/TimeTravelPenguin/Speedrun.com-Leaderboard-Exporter/releases). From here, the .zip file of recent build can be found. The files can then be extracted and opened.
 
 ## Requirements
 
