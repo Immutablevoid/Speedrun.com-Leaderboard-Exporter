@@ -27,9 +27,9 @@ Here you can modify the game, the category, and any query you wish to apply.
 This is where a little bit of research and knowladge come in. Locate your speedrun on the speedrun.com website, and find the game's ID. This is in the URL. Here I have *SMO* for Super Mario Odyssey, or, https://www.speedrun.com/smo.
 
 Similary, you need to find the category ID by doing a similar method. Once on the website, click on the category and find it in the URL. For example:
-* https://www.speedrun.com/smo#Any -> category = 'any'
-* https://www.speedrun.com/smo#100 -> category = '100'
-* https://www.speedrun.com/smo#All_Missions -> category = 'All_Missions'
+* https://www.speedrun.com/smo#Any	-> category = 'any'
+* https://www.speedrun.com/smo#100	-> category = '100'
+* https://www.speedrun.com/smo#All_Missions	-> category = 'All_Missions'
 
 If you do not wish to filter results, clear the query to:
 ```
@@ -38,6 +38,22 @@ query = ''
 Note that some leaderboards can be a little funky due to how they have been set up, and filtering may be a neccisary requirement for optimal results. For more information about query types, check it out [here](https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs).
 
 More information can be found by looking into the speedrun.com API, which can be found [here](https://github.com/speedruncomorg/api).
+
+## Once exported
+
+Once the script is completed, you will have a .txt file with each line containing something similar to:
+```
+Year-Moneth-Day Hour:Minute:Second
+
+1	user	time
+2	user	time
+3	user	time
+4	user	time
+...
+
+Completed Successfully with 0 errors...
+```
+Each line has each data separated by a tab space, allowing for an easy copy/paste into spreadsheets (e.g. Microsoft Excel), for easy graphing, or analysis. It also shows you the number of errors that occured during export. This will likely be due to a timeout error, and if this occures, the script will automatically repeat until successful (hopefully).
 
 ## Downloading
 
