@@ -14,12 +14,16 @@ Personally, I suggest [Notepad++](https://notepad-plus-plus.org/download/) for i
 Once opened, you should located this secion in the code located near the top of the code:
 
 ```
+####################################################################
+
 #Set game information
 user = 'timetravelpenguin'
 game = 'smo'
 category = 'any'
 #Query should be '?conditionA=1&condintionB=2&conditionC=3'
 query = '?emulators=false'
+
+####################################################################
 ```
 
 (Note: The *user* variable isn't currently used in this build, and is intended for exporting specific user's speedruns)
