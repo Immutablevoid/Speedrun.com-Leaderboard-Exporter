@@ -96,8 +96,10 @@ def LeaderboardExport():
 		count += 1
 		percent = str(round(count * 100 / max_runs, 3))
 		fract = "%s/%s" % (count, max_runs) 
-		elapsed = secToMin(time.time() - start)
-		etaTime = secToMin((time.time() - start) * (max_runs / count - 1))
+		
+		elapsed = secToTime(time.time() - start)
+		etaTime = secToTime((time.time() - start) * (max_runs / count - 1))
+
 		os.system("title Progress: " + percent + "% (" + fract + ")   Time: " + str(elapsed) + "   Errors: " + str(errors) + "   ETA: " + etaTime)
 	file.write("\nCompleted Successfully with %s errors...\n" % errors)
 	file.close()
@@ -148,14 +150,16 @@ def UserboardExport():
 					place = item['place']
 					game_id = item['run']['game']
 					game = IDtoGame(game_id)
+					category_id = item['run']['category']
+					category = IDtoCategory(category_id)
 					runtime = item['run']['times']['primary_t']
 					platform_id = item['run']['system']['platform']
 					platform = IDtoPlatform(platform_id)
 					region_id = item['run']['system']['region']
 					region = IDtoRegion(region_id)
 					emulated = item['run']['system']['emulated']
-					print("Place: %s\nGame: %s\nRuntime: %s\nPlatform: %s\nRegion: %s\nEmulated: %s\n" % (place, game, runtime, platform, region, emulated))
-					file.write("Place: %s\nGame: %s\nRuntime: %s\nPlatform: %s\nRegion: %s\nEmulated: %s\n\n" % (place, game, runtime, platform, region, emulated))
+					print("Place: %s\nGame: %s\nCategory: %s\nRuntime: %s\nPlatform: %s\nRegion: %s\nEmulated: %s\n\n" % (place, game, category, secToTime(runtime), platform, region, emulated))
+					file.write("Place: %s\nGame: %s\nCategory: %s\nRuntime: %s\nPlatform: %s\nRegion: %s\nEmulated: %s\n\n" % (place, game, category, secToTime(runtime), platform, region, emulated))
 				except (TimeoutError, urllib.error.URLError, urllib.error.HTTPError) as error:
 					print("Error...")
 					errors += 1
@@ -163,9 +167,11 @@ def UserboardExport():
 				break
 		count += 1
 		percent = str(round(count * 100 / max_runs, 3))
-		fract = "%s/%s" % (count, max_runs) 
-		elapsed = secToMin(time.time() - start)
-		etaTime = secToMin((time.time() - start) * (max_runs / count - 1))
+		fract = "%s/%s" % (count, max_runs)
+		
+		elapsed = secToTime(time.time() - start)
+		etaTime = secToTime((time.time() - start) * (max_runs / count - 1))
+
 		os.system("title Progress: " + percent + "% (" + fract + ")   Time: " + str(elapsed) + "   Errors: " + str(errors) + "   ETA: " + etaTime)
 	file.write("\nCompleted Successfully with %s errors...\n" % errors)
 	file.close()
@@ -185,12 +191,29 @@ def IDtoGame(game_id):
 		gamename = game_data['data']['names']['international']
 		return gamename
 	except (NameError, urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as error:
-		os.system('cls')
 		print("Game ID Error...")
 		print("Please check your Internet connection, and that GameData.py has correct information")
 		print()
 		os.system('pause')
-	
+		return "Error..."
+
+def IDtoCategory(category_id):
+	# Read game name
+	try:
+		category_url = 'https://www.speedrun.com/api/v1/categories/%s' % category_id
+		response_category = urllib.request.urlopen(category_url).read()
+		category_obj = str(response_category, 'utf-8')
+		category_data = json.loads(category_obj)
+
+		gamename = category_data['data']['name']
+		return gamename
+	except (NameError, urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as error:
+		print("Game ID Error...")
+		print("Please check your Internet connection, and that GameData.py has correct information")
+		print()
+		os.system('pause')
+		return "Error..."
+		
 def IDtoName(name_id):
 	try:
 		# ID to name conversion
@@ -204,11 +227,11 @@ def IDtoName(name_id):
 		user_name = api_data_user['data']['names']['international']
 		return user_name
 	except (NameError, urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as error:
-		os.system('cls')
 		print("Name ID Error...")
 		print("Please check your Internet connection...")
 		print()
 		os.system('pause')
+		return "Error..."
 
 def IDtoPlatform(platform_id):
 	try:
@@ -223,11 +246,11 @@ def IDtoPlatform(platform_id):
 		platform_name = api_data_platform['data']['name']
 		return platform_name
 	except (NameError, urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as error:
-		os.system('cls')
 		print("Platform ID Error...")
 		print("Please check your Internet connection...")
 		print()
 		os.system('pause')
+		return "Error..."
 	
 def IDtoRegion(region_id):
 	if region_id == None:
@@ -245,23 +268,31 @@ def IDtoRegion(region_id):
 			region_name = api_data_region['data']['name']
 			return region_name
 		except (NameError, urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as error:
-			os.system('cls')
 			print("Region ID Error...")
 			print("Please check your Internet connection...")
 			print()
 			os.system('pause')
+			return "Error..."
 
-def secToMin(sec):
-	m, s = divmod(sec, 60)
-	return "%d:%s" % (m, round(s, 3))
+def secToTime(sec):
+	if sec >= 3600:
+		m, s = divmod(sec, 60)
+		h, m = divmod(m, 60)
+		return "%d:%02d:%s" % (h, m, round(s, 3))
+	else:
+		m, s = divmod(sec, 60)
+		return "%d:%s" % (m, round(s, 3))
+	
 
 def Cleanup():
 	# Delete __pycache__
 	path = os.getcwd()
-	try:
-		shutil.rmtree('%s/__pycache__' % path, ignore_errors=False, onerror=None)
-	except FileNotFoundError:
-		pass
+	while True:
+		try:
+			shutil.rmtree('%s/__pycache__' % path, ignore_errors=False, onerror=None)
+			break
+		except FileNotFoundError:
+			continue
 	exit()
 	
 def main():
