@@ -1,0 +1,35 @@
+2018-01-26 15:13:46.912851
+
+1	Anthonewch	12563
+2	Bayleef	12685
+3	Tristan	13318
+4	Jcool114	13528
+5	spikevegeta	13581
+6	kerbis54	13731
+7	Odme_	13738
+8	TheSludgyGamer	13753
+9	360Chrism	13845
+10	Piper1618	13954
+11	IMtendo	14220
+12	Samura1man	14294
+13	DJCarmichael	14325
+14	JKdaPlague	14515
+15	FireDragon	15023
+16	Sirclare	15186
+17	P4ntz	15288
+18	Blazing	15309
+19	Zinpars	15446
+20	Antiyami	15476
+21	alexspeedruns	15529
+22	IsaacThe13th	15789
+23	KronicSauce	16053
+24	LuluHQ	16288
+25	Mystwalker	16711
+26	DrewGee	16997
+27	konkuu	17341
+28	RPG_Jerry	17565
+29	icupspeedruns	18612
+30	Pigeon	30360
+31	Funkybig	30794
+
+Completed Successfully with 0 errors...
