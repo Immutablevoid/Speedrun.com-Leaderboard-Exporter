@@ -1,0 +1,28 @@
+2018-01-26 19:07:51.989924
+
+Place: 412
+Game: Super Mario Odyssey
+Runtime: 4796
+Platform: Switch
+Region: EUR / PAL
+Emulated: False
+Place: 247
+Game: Super Mario 64
+Runtime: 1246
+Platform: Nintendo 64
+Region: USA / NTSC
+Emulated: True
+Place: 470
+Game: Super Mario 64
+Runtime: 1556
+Platform: Nintendo 64
+Region: EUR / PAL
+Emulated: False
+Place: 26
+Game: Pokémon Emerald
+Runtime: 20464
+Platform: Game Boy Advance
+Region: None
+Emulated: True
+
+Completed Successfully with 0 errors...
