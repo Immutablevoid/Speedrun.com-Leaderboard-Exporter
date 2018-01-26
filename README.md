@@ -65,7 +65,7 @@ The latest release can be downloaded from the [Releases Page](https://github.com
 
 As of the current build, it has the following system requirements:
 
-* Currently requires Windows. Future support may be made in the event someone requies it.
+* Currently requires Windows
 * [Python 3.0](https://www.python.org/downloads/) or later
 
 ## Minor note
