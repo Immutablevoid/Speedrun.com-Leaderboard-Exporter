@@ -154,8 +154,8 @@ def UserboardExport():
 					region_id = item['run']['system']['region']
 					region = IDtoRegion(region_id)
 					emulated = item['run']['system']['emulated']
-					print("Place: %s\nGame: %s\nRuntime: %s\nPlatform: %s\nRegion: %s\nEmulated: %s\n\n" % (place, game, runtime, platform, region, emulated))
-					file.write("Place: %s\nGame: %s\nRuntime: %s\nPlatform: %s\nRegion: %s\nEmulated: %s\n" % (place, game, runtime, platform, region, emulated))
+					print("Place: %s\nGame: %s\nRuntime: %s\nPlatform: %s\nRegion: %s\nEmulated: %s\n" % (place, game, runtime, platform, region, emulated))
+					file.write("Place: %s\nGame: %s\nRuntime: %s\nPlatform: %s\nRegion: %s\nEmulated: %s\n\n" % (place, game, runtime, platform, region, emulated))
 				except (TimeoutError, urllib.error.URLError, urllib.error.HTTPError) as error:
 					print("Error...")
 					errors += 1
