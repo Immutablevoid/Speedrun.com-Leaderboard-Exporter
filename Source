@@ -20,9 +20,12 @@ Once opened, it should show:
 # Set game information
 game = 'smo'
 category = '100'
+
 # Query should be '?conditionA=1&condintionB=2&conditionC=3'
 # For more query filter options, visit:
 # https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs
+
+# For no filter, query = ''
 query = '?emulators=false'
 ```
 
@@ -34,10 +37,6 @@ Similary, you need to find the category ID by doing a similar method. Once on th
 * https://www.speedrun.com/smo#100	-> category = '100'
 * https://www.speedrun.com/smo#All_Missions	-> category = 'All_Missions'
 
-If you do not wish to filter results, clear the query to:
-```
-query = ''
-```
 Note that some leaderboards can be a little funky due to how they have been set up, and filtering may be a neccisary requirement for optimal results. For more information about query types, check it out [here](https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs).
 
 More information can be found by looking into the speedrun.com API, which can be found [here](https://github.com/speedruncomorg/api).
