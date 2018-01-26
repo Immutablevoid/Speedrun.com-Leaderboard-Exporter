@@ -11,7 +11,7 @@ It's very simple, and I will provide you a basic guide on how to modify your scr
 Firstly, open the GameData.py script by opening it in your prefered text editor.
 Personally, I suggest [Notepad++](https://notepad-plus-plus.org/download/) for it's built-in syntax.
 
-If the file doesn't exist, run SLE.py, and it will create a premade file for you, beofore closing.
+If the file doesn't exist, run SLE.py, and it will create a premade file for you, before closing.
 You can then edit the necessary fields in the file.
 
 Once opened, it should show:
