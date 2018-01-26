@@ -16,7 +16,7 @@ You can then edit the necessary fields in the file.
 
 Once opened, it should show:
 
-```
+```py
 # Set game information
 # username / ID
 # user = 'y8dwlrgj'
