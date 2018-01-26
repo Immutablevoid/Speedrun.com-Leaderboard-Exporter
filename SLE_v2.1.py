@@ -1,5 +1,5 @@
 ## Made by TimeTravelPenguin
-## Check for updates at https://github.pengu.space
+## Check for updates at https://SLE.pengu.space
 ## Or simply visit https://pengu.space for more general stuff
 
 import urllib.request
@@ -9,6 +9,7 @@ import datetime
 import time
 import math
 import shutil
+from GameData import *
 
 # Set title and clock
 os.system("title Waiting for user input...")
@@ -18,21 +19,20 @@ start = time.time()
 time.clock()
 elapsed = 0
 
-os.system('cls') 
-# Check if GameData.py exists
-if os.path.isfile('GameData.py') == True:
-	pass
-elif os.path.isfile('GameData.py') == False:
-	print('GameData.py not found... Creating new file...')
-	varDir = open("GameData.py", 'w', encoding='utf-8')
-	msg = "# Set game information\n# username / ID\n# user = \'y8dwlrgj\'\nuser = \'timetravelpenguin\'\ngame = \'smo\'\ncategory = \'100\'\n\n# Query should be \'?conditionA=1&condintionB=2&conditionC=3\'\n# For more query filter options, visit:\n# https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs\n\n# For no filter, query = \'\'\nquery = \'?emulators=false\'\n"
-	varDir.write(msg)
-	varDir.close()
-	print('Please edit GameData.py, and then rerun SLE.py...\n')
-	os.system('pause')
-	exit()
-
-from GameData import *
+def setupGameData():
+	os.system('cls') 
+	# Check if GameData.py exists
+	if os.path.isfile('GameData.py') == True:
+		pass
+	elif os.path.isfile('GameData.py') == False:
+		print('GameData.py not found... Creating new file...')
+		varDir = open("GameData.py", 'w', encoding='utf-8')
+		msg = "# Set game information\n# username / ID\n# user = \'y8dwlrgj\'\nuser = \'timetravelpenguin\'\ngame = \'smo\'\ncategory = \'100\'\n\n# Query should be \'?conditionA=1&condintionB=2&conditionC=3\'\n# For more query filter options, visit:\n# https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs\n\n# For no filter, query = \'\'\nquery = \'?emulators=false\'\n"
+		varDir.write(msg)
+		varDir.close()
+		print('Please edit GameData.py, and then rerun SLE.py...\n')
+		os.system('pause')
+		Cleanup()
 
 def LeaderboardExport():
 	# Leaderboard URL
@@ -103,7 +103,6 @@ def LeaderboardExport():
 		os.system("title Progress: " + percent + "% (" + fract + ")   Time: " + str(elapsed) + "   Errors: " + str(errors) + "   ETA: " + etaTime)
 	file.write("\nCompleted Successfully with %s errors...\n" % errors)
 	file.close()
-	print()
 	print("Completed Successfully with %s errors...\n" % str(errors))
 	os.system('pause')
 
@@ -175,7 +174,6 @@ def UserboardExport():
 		os.system("title Progress: " + percent + "% (" + fract + ")   Time: " + str(elapsed) + "   Errors: " + str(errors) + "   ETA: " + etaTime)
 	file.write("\nCompleted Successfully with %s errors...\n" % errors)
 	file.close()
-	print()
 	print("Completed Successfully with %s errors...\n" % str(errors))
 	os.system('pause')
 	Cleanup()
@@ -228,8 +226,7 @@ def IDtoName(name_id):
 		return user_name
 	except (NameError, urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as error:
 		print("Name ID Error...")
-		print("Please check your Internet connection...")
-		print()
+		print("Please check your Internet connection...\n")
 		os.system('pause')
 		return "Error..."
 
@@ -290,27 +287,24 @@ def Cleanup():
 	while True:
 		try:
 			shutil.rmtree('%s/__pycache__' % path, ignore_errors=False, onerror=None)
-			break
 		except FileNotFoundError:
-			continue
+			break
 	exit()
 	
 def main():
 	os.system('cls')
-	print('What would you like to do?\n1. Export Speedrun Leaderboard\n2. Export user speedruns\n3. Exit')
+	print('What would you like to do?\n1. Export Speedrun Leaderboard\n2. Export User Speedruns\n3. Exit')
 	option = int(input('Select option (1, 2, 3): '))
 	if option == 1:
-		os.system('cls')
+		setupGameData()
 		LeaderboardExport()
 		Cleanup()
 	elif option == 2:
-		os.system('cls')
+		setupGameData()
 		UserboardExport()
-		os.system('pause')
 		Cleanup()
 	elif option == 3:
 		Cleanup()
-		exit()
 	else:
 		main()
 
