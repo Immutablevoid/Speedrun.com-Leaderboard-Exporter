@@ -73,36 +73,16 @@ Completed Successfully with 0 errors...
 
 or [this](https://github.com/TimeTravelPenguin/Speedrun.com-Leaderboard-Exporter/blob/master/ExampleFiles/SLE_Export_timetravelpenguin.txt):
 ```
-2018-01-26 19:15:05.681257
+Year-Month-Day Hour:Minute:Second
 
-Place: 412
-Game: Super Mario Odyssey
-Runtime: 4796
-Platform: Switch
-Region: EUR / PAL
-Emulated: False
+Place: Rank
+Game: Game Name
+Runtime: Seconds
+Platform: Console
+Region: Region
+Emulated: True/False
 
-Place: 247
-Game: Super Mario 64
-Runtime: 1246
-Platform: Nintendo 64
-Region: USA / NTSC
-Emulated: True
-
-Place: 470
-Game: Super Mario 64
-Runtime: 1556
-Platform: Nintendo 64
-Region: EUR / PAL
-Emulated: False
-
-Place: 26
-Game: Pokémon Emerald
-Runtime: 20464
-Platform: Game Boy Advance
-Region: None
-Emulated: True
-
+...
 
 Completed Successfully with 0 errors...
 ```
