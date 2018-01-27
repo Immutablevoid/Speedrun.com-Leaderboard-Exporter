@@ -9,6 +9,7 @@ import datetime
 import time
 import math
 import shutil
+import types
 
 # Set title and clock
 os.system("title Waiting for user input...")
@@ -23,31 +24,35 @@ def setupConfig():
 	# Check if config.py exists
 	if os.path.isfile('config.py') == True:
 		pass
-	elif os.path.isfile('config.py') == False:
+	else:
+		os.path.isfile('config.py')
 		print('config.py not found... Creating new file...')
-		varDir = open("config.py", 'w', encoding='utf-8')
-		msg = "# Set game information\n# username / ID\n# user = \'y8dwlrgj\'\nuser = \'timetravelpenguin\'\ngame = \'smo\'\ncategory = \'any\'\n\n# if displaySec = True, the on screen time will be in seconds rather than HH:MM:SS\n# if exportSec = True, the exported time will be in seconds rather than HH:MM:SS\n# user_ is for the userboards, leaderboard_ is for the speedrunning leaderboard\nleaderboard_displaySec = False\nleaderboard_exportSec = True\nuser_displaySec = False\nuser_exportSec = True\n\n# Query should be \'?conditionA=1&condintionB=2&conditionC=3\'\n# For more query filter options, visit:\n# https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs\n\n# For no filter, query = \'\'\nquery = \'?emulators=false\'\n"
-		varDir.write(msg)
-		varDir.close()
+		configDir = open("config.py", 'w', encoding='utf-8')
+		msg = "# Set game information\n# username / ID\n# user = \'y8dwlrgj\'\nuser = \'timetravelpenguin\'\ngame = \'smo\'\ncategory = \'any\'\n\n# if displaySec = True, the on screen time will be in seconds rather than HH:MM:SS\n# if exportSec = True, the exported time will be in seconds rather than HH:MM:SS\n# user_ is for the userboards, leaderboard_ is for the speedrunning leaderboard\nleaderboard_displaySec = False\nleaderboard_exportSec = True\nuser_displaySec = False\nuser_exportSec = True\n\n# Query should be \'?conditionA=1&condintionB=2&conditionC=3\'\n# For more query filter options, visit:\n# https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs\n\n# For no filter, query = \'\'\nquery = \'?emulators=false\'\n\n# Statistics Mode\n# Set to True if you wish to ignore usernames, and only export the time for speedrun leaderboards\n# This will significantly increase the speed of the export\nstatMode = True\n"
+		configDir.write(msg)
+		configDir.close()
 		print('Please edit config.py, and then rerun SLE.py...\n')
 		Cleanup()
+	
+	# Code config.py Boolean check here
 
-def LeaderboardExport():
-	# Leaderboard URL
-	api_url = 'https://www.speedrun.com/api/v1/leaderboards/%s/category/%s%s' % (game, category, query)
-
+def startText():
 	# Start up text
 	print("This python script was written and coded by TimeTravelPenguin")
 	print()
 	print("For more, goto: https://SLE.pengu.space")
 	print()
-
 	os.system("title Connecting to API...")
-	gamename = IDtoGame(game)
+	
+def LeaderboardExport():
 
-	time_var = datetime.datetime.now()
+	startText()
+
+	gamename = IDtoGame(game)
+	
 	print("==========================================================================")
 	print()
+	time_var = datetime.datetime.now()
 	print(time_var)
 	print('\nGame: %s (%s)' % (gamename, game))
 	print('Category: ' + category)
@@ -55,9 +60,10 @@ def LeaderboardExport():
 		print('Query: None')
 	else:
 		print('Query: ' + query)
-	print()
+	print('Statistics Mode = ' + str(statMode))
 
 	# Load leaderboard API
+	api_url = 'https://www.speedrun.com/api/v1/leaderboards/%s/category/%s%s' % (game, category, query)
 	response = urllib.request.urlopen(api_url).read()
 	json_obj = str(response, 'utf-8')
 	api_data = json.loads(json_obj)
@@ -73,36 +79,41 @@ def LeaderboardExport():
 
 	# List leaderboard data
 	for item in api_data['data']['runs']:
-		while True:
-				try:
-					place = item['place']
-					runtime = item['run']['times']['primary_t']
-					name_id = item['run']['players'][0]['id']
-					user_name = IDtoName(name_id)
-					print(place, user_name, secToTime(runtime))
-					file.write("%s\t%s\t%s\n" % (place, user_name, runtime))
-				except KeyError:
-					name_id = item['run']['players'][0]['name']
-					
-					if leaderboard_displaySec == False:
-						display_runtime = secToTime(runtime)
-					else:
-						display_runtime = runtime
+		place = item['place']
+		runtime = item['run']['times']['primary_t']
+		
+		# Determine if times are in seconds or H:M:S	
+		if leaderboard_displaySec == False:
+			display_runtime = secToTime(runtime)
+		else:
+			display_runtime = runtime
+		if leaderboard_exportSec == False:
+			export_runtime = secToTime(runtime)
+		else:
+			export_runtime = runtime
+		
+		# Check Statistics Mode
+		if statMode == False and isinstance(statMode, bool) == True:
+			try:
+				name_id = item['run']['players'][0]['id']
+				user_name = IDtoName(name_id)
+				print(place, user_name, secToTime(runtime))
+				file.write("%s\t%s\t%s\n" % (place, user_name, runtime))
+			except KeyError:
+				name_id = item['run']['players'][0]['name']
+				print(place, name_id, secToTime(runtime))
+				file.write("%s\t%s\t%s\n" % (place, name_id, export_runtime))
+			except (TimeoutError, urllib.error.URLError, urllib.error.HTTPError) as error:
+				print("Error...")
+				errors += 1
+				continue
+		elif statMode == True and isinstance(statMode, bool) == True:
+			print(place, secToTime(runtime))
+			file.write("%s\t%s\n" % (place, runtime))
+		else:
+			print('\nstatMode should be True or False')
+			Cleanup()
 
-					print(place, name_id, display_runtime)
-					
-					if leaderboard_exportSec == False:
-						export_runtime = secToTime(runtime)
-					else:
-						export_runtime = runtime
-						
-					file.write("%s\t%s\t%s\n" % (place, name_id, export_runtime))
-					break
-				except (TimeoutError, urllib.error.URLError, urllib.error.HTTPError) as error:
-					print("Error...")
-					errors += 1
-					continue
-				break
 		count += 1
 		percent = str(round(count * 100 / max_runs, 3))
 		fract = "%s/%s" % (count, max_runs) 
@@ -113,32 +124,24 @@ def LeaderboardExport():
 		os.system("title Progress: " + percent + "% (" + fract + ")   Time: " + str(elapsed) + "   Errors: " + str(errors) + "   ETA: " + etaTime)
 	file.write("\nCompleted Successfully with %s errors...\n" % errors)
 	file.close()
-	print("Completed Successfully with %s errors...\n" % str(errors))
+	print("\nCompleted Successfully with %s errors...\n" % str(errors))
 	Cleanup()
 
-def UserboardExport():	
-	# Leaderboard URL
-	api_url = 'https://www.speedrun.com/api/v1/users/%s/personal-bests' % user
+def UserboardExport():
 
-	# Start up text
-	print("This python script was written and coded by TimeTravelPenguin")
-	print()
-	print("For more, goto: https://SLE.pengu.space")
-	print()
-	
-	# Initial information display
-	os.system("title Connecting to API...")
+	startText()
 
 	username = IDtoName(user)
-	
-	time_var = datetime.datetime.now()
+
 	print("==========================================================================")
 	print()
+	time_var = datetime.datetime.now()
 	print(time_var)
 	print('\nUser: %s\n' % username)
 	
 
 	# Load leaderboard API
+	api_url = 'https://www.speedrun.com/api/v1/users/%s/personal-bests' % user
 	response = urllib.request.urlopen(api_url).read()
 	json_obj = str(response, 'utf-8')
 	api_data = json.loads(json_obj)
@@ -310,28 +313,30 @@ def Cleanup():
 			shutil.rmtree('%s/__pycache__' % path, ignore_errors=False, onerror=None)
 		except FileNotFoundError:
 			break
+	print()
 	os.system('pause')
 	exit()
 	
 def main():
 	os.system('cls')
 	print('What would you like to do?\n1. Export Speedrun Leaderboard\n2. Export User Speedruns\n3. Exit')
-	option = int(input('Select option (1, 2, 3): '))
-	if option == 1:
+	option = str(input('Select option (1, 2, 3): '))
+	if option == '1':
 		setupConfig()
 		LeaderboardExport()
 		Cleanup()
-	elif option == 2:
+	elif option == '2':
 		setupConfig()
 		UserboardExport()
 		Cleanup()
-	elif option == 3:
+	elif option == '3':
 		Cleanup()
 	else:
 		main()
 
 try:
 	from config import *
-except ModuleNotFoundError:
+except (ModuleNotFoundError, NameError) as error:
 	setupConfig()
+
 main()
