@@ -30,7 +30,6 @@ def setupConfig():
 		varDir.write(msg)
 		varDir.close()
 		print('Please edit config.py, and then rerun SLE.py...\n')
-		os.system('pause')
 		Cleanup()
 
 def LeaderboardExport():
@@ -115,7 +114,7 @@ def LeaderboardExport():
 	file.write("\nCompleted Successfully with %s errors...\n" % errors)
 	file.close()
 	print("Completed Successfully with %s errors...\n" % str(errors))
-	os.system('pause')
+	Cleanup()
 
 def UserboardExport():	
 	# Leaderboard URL
@@ -198,7 +197,6 @@ def UserboardExport():
 	file.write("\nCompleted Successfully with %s errors...\n" % errors)
 	file.close()
 	print("Completed Successfully with %s errors...\n" % str(errors))
-	os.system('pause')
 	Cleanup()
 
 def IDtoGame(game_id):
@@ -312,6 +310,7 @@ def Cleanup():
 			shutil.rmtree('%s/__pycache__' % path, ignore_errors=False, onerror=None)
 		except FileNotFoundError:
 			break
+	os.system('pause')
 	exit()
 	
 def main():
