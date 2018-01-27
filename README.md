@@ -5,10 +5,10 @@ It helps to aid in the documentation of speedruns at a given time from speedrun.
 
 ## How to use
 
-To export a speedrun's leaderboard from speedrun.com, you must first configure the GameData.py file.
+To export a speedrun's leaderboard from speedrun.com, you must first configure the config.py file.
 It's very simple, and I will provide you a basic guide on how to modify your script to export any leaderboard.
 
-Firstly, open the GameData.py script by opening it in your prefered text editor.
+Firstly, open the config.py script by opening it in your prefered text editor.
 Personally, I suggest [Notepad++](https://notepad-plus-plus.org/download/) for it's built-in syntax.
 
 If the file doesn't exist, run SLE.py, and it will create a premade file for you, before closing.
@@ -22,7 +22,15 @@ Once opened, it should show:
 # user = 'y8dwlrgj'
 user = 'timetravelpenguin'
 game = 'smo'
-category = '100'
+category = 'any'
+
+# if displaySec = True, the on screen time will be in seconds rather than HH:MM:SS
+# if exportSec = True, the exported time will be in seconds rather than HH:MM:SS
+# user_ is for the userboards, leaderboard_ is for the speedrunning leaderboard
+leaderboard_displaySec = False
+leaderboard_exportSec = True
+user_displaySec = False
+user_exportSec = True
 
 # Query should be '?conditionA=1&condintionB=2&conditionC=3'
 # For more query filter options, visit:
@@ -40,6 +48,16 @@ Similary, you need to find the category ID by doing a similar method. Once on th
 * https://www.speedrun.com/smo#100	-> category = '100'
 * https://www.speedrun.com/smo#All_Missions	-> category = 'All_Missions'
 
+You can also modify the section:
+```py
+leaderboard_displaySec = False
+leaderboard_exportSec = True
+user_displaySec = False
+user_exportSec = True
+```
+
+These settings determine if the program will display and export time in seconds or in H:M:S notation, for the leaderboards or userboards. Leaving the export in seconds makes spredsheeting easier, and having the display as H:M:S makes it easier to read whilst on-screen (aesthetics).
+
 Note that some leaderboards can be a little funky due to how they have been set up, and filtering may be a neccisary requirement for optimal results. For more information about query types, check it out [here](https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs).
 
 When you start up SLE.py, you will be presented with this screen:
@@ -52,7 +70,7 @@ Select option (1, 2, 3):
 ```
 
 Option 1 will export the leaderboard of *game* for *category*. It will also apply the query.
-Option 2 will list and export all the speedruns (personal bests) by *user*.
+Option 2 will list and export all the speedruns (personal bests) performed by an individual, defined by *user* in config.py.
 
 More information can be found by looking into the speedrun.com API, which can be found [here](https://github.com/speedruncomorg/api).
 
