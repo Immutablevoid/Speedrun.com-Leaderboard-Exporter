@@ -9,7 +9,6 @@ import datetime
 import time
 import math
 import shutil
-from GameData import *
 
 # Set title and clock
 os.system("title Waiting for user input...")
@@ -19,18 +18,18 @@ start = time.time()
 time.clock()
 elapsed = 0
 
-def setupGameData():
+def setupConfig():
 	os.system('cls') 
-	# Check if GameData.py exists
-	if os.path.isfile('GameData.py') == True:
+	# Check if config.py exists
+	if os.path.isfile('config.py') == True:
 		pass
-	elif os.path.isfile('GameData.py') == False:
-		print('GameData.py not found... Creating new file...')
-		varDir = open("GameData.py", 'w', encoding='utf-8')
-		msg = "# Set game information\n# username / ID\n# user = \'y8dwlrgj\'\nuser = \'timetravelpenguin\'\ngame = \'smo\'\ncategory = \'100\'\n\n# Query should be \'?conditionA=1&condintionB=2&conditionC=3\'\n# For more query filter options, visit:\n# https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs\n\n# For no filter, query = \'\'\nquery = \'?emulators=false\'\n"
+	elif os.path.isfile('config.py') == False:
+		print('config.py not found... Creating new file...')
+		varDir = open("config.py", 'w', encoding='utf-8')
+		msg = "# Set game information\n# username / ID\n# user = \'y8dwlrgj\'\nuser = \'timetravelpenguin\'\ngame = \'smo\'\ncategory = \'any\'\n\n# if displaySec = True, the on screen time will be in seconds rather than HH:MM:SS\n# if exportSec = True, the exported time will be in seconds rather than HH:MM:SS\n# user_ is for the userboards, leaderboard_ is for the speedrunning leaderboard\nleaderboard_displaySec = False\nleaderboard_exportSec = True\nuser_displaySec = False\nuser_exportSec = True\n\n# Query should be \'?conditionA=1&condintionB=2&conditionC=3\'\n# For more query filter options, visit:\n# https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs\n\n# For no filter, query = \'\'\nquery = \'?emulators=false\'\n"
 		varDir.write(msg)
 		varDir.close()
-		print('Please edit GameData.py, and then rerun SLE.py...\n')
+		print('Please edit config.py, and then rerun SLE.py...\n')
 		os.system('pause')
 		Cleanup()
 
@@ -81,12 +80,24 @@ def LeaderboardExport():
 					runtime = item['run']['times']['primary_t']
 					name_id = item['run']['players'][0]['id']
 					user_name = IDtoName(name_id)
-					print(place, user_name, runtime)
+					print(place, user_name, secToTime(runtime))
 					file.write("%s\t%s\t%s\n" % (place, user_name, runtime))
 				except KeyError:
 					name_id = item['run']['players'][0]['name']
-					print(place, name_id, runtime)
-					file.write("%s\t%s\t%s\n" % (place, name_id, runtime))
+					
+					if leaderboard_displaySec == False:
+						display_runtime = secToTime(runtime)
+					else:
+						display_runtime = runtime
+
+					print(place, name_id, display_runtime)
+					
+					if leaderboard_exportSec == False:
+						export_runtime = secToTime(runtime)
+					else:
+						export_runtime = runtime
+						
+					file.write("%s\t%s\t%s\n" % (place, name_id, export_runtime))
 					break
 				except (TimeoutError, urllib.error.URLError, urllib.error.HTTPError) as error:
 					print("Error...")
@@ -157,8 +168,20 @@ def UserboardExport():
 					region_id = item['run']['system']['region']
 					region = IDtoRegion(region_id)
 					emulated = item['run']['system']['emulated']
-					print("Place: %s\nGame: %s\nCategory: %s\nRuntime: %s\nPlatform: %s\nRegion: %s\nEmulated: %s\n\n" % (place, game, category, secToTime(runtime), platform, region, emulated))
-					file.write("Place: %s\nGame: %s\nCategory: %s\nRuntime: %s\nPlatform: %s\nRegion: %s\nEmulated: %s\n\n" % (place, game, category, secToTime(runtime), platform, region, emulated))
+					
+					if user_displaySec == False:
+						display_runtime = secToTime(runtime)
+					else:
+						display_runtime = runtime
+						
+					print("Place: %s\nGame: %s\nCategory: %s\nRuntime: %s\nPlatform: %s\nRegion: %s\nEmulated: %s\n\n" % (place, game, category, display_runtime, platform, region, emulated))
+					
+					if user_exportSec == False:
+						export_runtime = secToTime(runtime)
+					else:
+						export_runtime = runtime
+						
+					file.write("Place: %s\nGame: %s\nCategory: %s\nRuntime: %s\nPlatform: %s\nRegion: %s\nEmulated: %s\n\n" % (place, game, category, export_runtime, platform, region, emulated))
 				except (TimeoutError, urllib.error.URLError, urllib.error.HTTPError) as error:
 					print("Error...")
 					errors += 1
@@ -190,7 +213,7 @@ def IDtoGame(game_id):
 		return gamename
 	except (NameError, urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as error:
 		print("Game ID Error...")
-		print("Please check your Internet connection, and that GameData.py has correct information")
+		print("Please check your Internet connection, and that config.py has correct information")
 		print()
 		os.system('pause')
 		return "Error..."
@@ -207,7 +230,7 @@ def IDtoCategory(category_id):
 		return gamename
 	except (NameError, urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as error:
 		print("Game ID Error...")
-		print("Please check your Internet connection, and that GameData.py has correct information")
+		print("Please check your Internet connection, and that config.py has correct information")
 		print()
 		os.system('pause')
 		return "Error..."
@@ -296,11 +319,11 @@ def main():
 	print('What would you like to do?\n1. Export Speedrun Leaderboard\n2. Export User Speedruns\n3. Exit')
 	option = int(input('Select option (1, 2, 3): '))
 	if option == 1:
-		setupGameData()
+		setupConfig()
 		LeaderboardExport()
 		Cleanup()
 	elif option == 2:
-		setupGameData()
+		setupConfig()
 		UserboardExport()
 		Cleanup()
 	elif option == 3:
@@ -308,4 +331,8 @@ def main():
 	else:
 		main()
 
+try:
+	from config import *
+except ModuleNotFoundError:
+	setupConfig()
 main()
