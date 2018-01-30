@@ -9,7 +9,6 @@ import datetime
 import time
 import math
 import shutil
-import types
 
 # Set title and clock
 os.system("title Waiting for user input...")
@@ -38,6 +37,7 @@ def setupConfig():
 
 def startText():
 	# Start up text
+	os.system('cls')
 	print("This python script was written and coded by TimeTravelPenguin")
 	print()
 	print("For more, goto: https://SLE.pengu.space")
@@ -45,6 +45,16 @@ def startText():
 	os.system("title Connecting to API...")
 	
 def LeaderboardExport():
+	
+	os.system('cls')
+	
+	mode = input('Would you like to use Statistics mode?\nOption (0=yes, 1=no): ')
+	if mode == "0":
+		statMode = True
+	elif mode == "1":
+		statMode = False
+	else:
+		LeaderboardExport()
 
 	startText()
 
@@ -60,7 +70,7 @@ def LeaderboardExport():
 		print('Query: None')
 	else:
 		print('Query: ' + query)
-	print('Statistics Mode = ' + str(statMode))
+	print('Statistics Mode = %s\n' % str(statMode))
 
 	# Load leaderboard API
 	api_url = 'https://www.speedrun.com/api/v1/leaderboards/%s/category/%s%s' % (game, category, query)
