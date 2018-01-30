@@ -38,11 +38,6 @@ user_exportSec = True
 
 # For no filter, query = ''
 query = '?emulators=false'
-
-# Statistics Mode
-# Set to True if you wish to ignore usernames, and only export the time for speedrun leaderboards
-# This will significantly increase the speed of the export
-statMode = True
 ```
 
 Here you can modify the target user, game, the category, and any query you wish to apply.
@@ -81,7 +76,7 @@ More information can be found by looking into the speedrun.com API, which can be
 
 ## Statistics mode
 
-In config.py, there is a Boolean called *statMode*. Setting this to True will make the script skip over finding the speedrunners names when exporting an Leaderboard. While set to True, the export should finish within several seconds, rather than several to many minutes.
+If exporting a leaderboard, you will be asked if you wish to use Statistics mode, or not. Setting this to True will make the script skip over finding the speedrunners names when exporting a Leaderboard. While set to True, the export should finish within several seconds, rather than several to many minutes.
 
 ## Once exported
 
