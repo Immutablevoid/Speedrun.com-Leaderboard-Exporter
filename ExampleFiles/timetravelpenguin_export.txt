@@ -1,0 +1,32 @@
+Game: Super Mario Odyssey
+Place: 523
+Category: Any%
+Runtime: 1:19:56
+Platform: Switch
+Region: EUR / PAL
+Emulated: False
+
+Game: Super Mario 64
+Place: 289
+Category: 16 Star
+Runtime: 20:46
+Platform: Nintendo 64
+Region: USA / NTSC
+Emulated: True
+
+Game: Super Mario 64
+Place: 498
+Category: 16 Star
+Runtime: 25:56
+Platform: Nintendo 64
+Region: EUR / PAL
+Emulated: False
+
+Game: Pokémon Emerald
+Place: 29
+Category: Any% Glitchless
+Runtime: 5:41:4
+Platform: Game Boy Advance
+Region: None
+Emulated: True
+
