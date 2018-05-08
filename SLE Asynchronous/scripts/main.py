@@ -12,25 +12,28 @@ except (ModuleNotFoundError, NameError) as error:
 	cleanup.Clean()
 	exit()
 
+def Quit():
+	cleanup.Clean()
+	exit()
+
 # User input: Choose which mode to use
 def main():
 
 	os.system("title Select option...")
 	os.system('cls')
 	
-	print('''Important Notice:
-Ensure ALL instances of this script are closed before starting this script!
-If need be, close all windows and restart the script!\n\n''')
-	
-	print('What would you like to do?\n1. Export Speedrun Leaderboard\n2. Export User Leaderboard\n3. Exit\n')
-	option = str(input('Select option (1, 2, 3): '))
+	print('What would you like to do?\n1. Export Speedrun Leaderboard\n2. Export User Leaderboard\n3. Search Variables\n4. Exit\n')
+	option = str(input('Select option (1, 2, 3, 4): '))
 	
 	if option == '1':
-		setupConfig.setup()
 		getRuns.SpeedrunLeaderboard(cfg.game, cfg.category, cfg.query)
 	elif option == '2':
-		setupConfig.setup()
 		getRuns.UserSpeedruns(cfg.user)
+	elif option == '3':
+		RAWcategories, PARSEcategories, max_categories, fullGameName = getRuns.getCategories(cfg.game)
+		getRuns.FindVariables(cfg.game, RAWcategories, PARSEcategories, max_categories, fullGameName)
+	elif option == '4':
+		Quit()
 	elif option == '0':
 		os.system('cls')
 		# This is pointless and only for fun
@@ -47,10 +50,6 @@ If need be, close all windows and restart the script!\n\n''')
    ~;/     \;~ 
 '''
 		print(penguin)
-		cleanup.Clean()
-		exit()
-	elif option == '3':
-		cleanup.Clean()
-		exit()
+		Quit()
 	else:
 		main()

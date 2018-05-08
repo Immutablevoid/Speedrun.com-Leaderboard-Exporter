@@ -19,10 +19,15 @@ category = \'any\'
 # For more query filter options, visit:
 # https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs\
 
+# To query variables, use SLE and find the IDs and use it in the query like so:
+# \'?var-A=B\'
+# An example would be: ?var-e8m7em86=5lmoxk01
+# e8m7em86 = Platform,	5lmoxk01 = EMU
+# So this filters all runs for ONLY EMU Platform runs
+
 # For no filter, query = \'\'
 query = \'?emulators=false\'
 """
 		configDir.write(msg)
 		configDir.close()
 		print('Please edit config.py, and then rerun SLE.py...\n')
-		os.system('pause')

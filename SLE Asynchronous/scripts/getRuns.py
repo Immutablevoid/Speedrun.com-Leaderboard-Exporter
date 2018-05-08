@@ -7,6 +7,84 @@ from scripts import apiConnect
 from scripts import converters as conv
 from scripts import APIthreads
 from scripts import write
+from scripts import main
+
+def getCategories(game):
+	os.system('title Speedrun Leaderboard Exporter (SLE)')
+	os.system('cls')
+	
+	RAWcategories = dict()
+	PARSEcategories = dict()
+	
+	fullGameName = conv.IDtoGame(game)
+	
+	print('Choose a category from the game: %s\n' % fullGameName)
+	print('Categories:')
+	
+	categories = dict()
+	
+	# Get categories as dict {Name:ID}
+	category_api = apiConnect.getCategories(game)
+	
+	max_categories = 0
+	for item in category_api['data']:
+		max_categories += 1
+		RAWcategories[max_categories] = item['id']
+		PARSEcategories[max_categories] = item['name']
+	return RAWcategories, PARSEcategories, max_categories, fullGameName
+
+def getCategoryVariables(category):
+	# Get list of Variable Parent IDs
+	RAWParentVariables = dict()
+	PARSEDParentVariables = dict()
+	RAWChildVariables = dict()
+	PARSEDChildVariables = dict()
+	ChildVariables = dict()
+	
+	api = apiConnect.getCategoryVariables(category)
+	
+	count = 0
+	for item in api['data']:
+		count += 1
+		RAWParentVariables[count] = item['id']
+		PARSEDParentVariables[count] = item['name']
+
+	max_categories = 0
+	parentCount = 0 
+	for i in range(len(api['data'])):
+		children = str()
+		parentCount += 1
+		for item in api['data'][i]['values']['choices']:
+			max_categories += 1
+			RAWChildVariables[max_categories] = item
+			PARSEDChildVariables[max_categories] = api['data'][i]['values']['choices'][item]
+			children += '(%s) %s\n' % (item, api['data'][i]['values']['choices'][item])
+		ChildVariables[parentCount] = children
+	
+	return RAWParentVariables, PARSEDParentVariables, ChildVariables, parentCount
+
+def FindVariables(game, RAWcategories, PARSEcategories, max_categories, fullGameName):
+	for i in range(1, max_categories + 1):print('%s. (%s) %s' %(i, RAWcategories[i], PARSEcategories[i]))
+	
+	while True:
+		option = str(input('\nOption: '))
+		try:
+			if int(option) in range(1, max_categories + 1):
+				category = RAWcategories[int(option)]
+				break
+		except ValueError:
+			pass	
+	
+	RAWParentVariables, PARSEDParentVariables, ChildVariables, max_categories = getCategoryVariables(category)
+	
+	os.system('cls')
+	
+	print('For %s - (%s) %s, the variables are:' %(fullGameName, category, PARSEcategories[int(option)]))
+	for i in range(1, max_categories + 1):
+		print('(%s) %s:\n%s' % (RAWParentVariables[i], PARSEDParentVariables[i], ChildVariables[i]))
+	
+	os.system('pause')
+	main.main()
 
 def SpeedrunLeaderboard(game, category, query):
 	dict_SortedNames = dict()
@@ -45,7 +123,7 @@ def SpeedrunLeaderboard(game, category, query):
 	for key, value in sorted(chain(dict_Users.items(), dict_Guest.items())):
 		dict_SortedNames[key] = value
 
-	write.WriteFile_SL(dict_SortedNames)
+	write.WriteFile_SL(dict_SortedNames, game, category)
 	
 def getSL(api):
 	counter = 1
@@ -76,13 +154,13 @@ def getSL(api):
 	return dict_ID, dict_Guest, dict_Place, dict_Time
 		
 
-def UserSpeedruns(username):
+def UserSpeedruns(user):
 	dict_SortedNames = dict()
 	dict_Users = dict()
 	
 	startup.startText()
 	
-	username = conv.IDtoName(username)
+	username = conv.IDtoName(user)
 	os.system('title Speedrun Leaderboard Exporter (SLE)')
 	
 	time_var = datetime.datetime.now()
@@ -100,7 +178,7 @@ def UserSpeedruns(username):
 	print('Fetching Speedruns...\n')
 	userdata = getUS(api)
 	
-	write.WriteFile_UL(userdata)
+	write.WriteFile_UL(userdata, username)
 	
 def getUS(api):
 	dict_user = dict()

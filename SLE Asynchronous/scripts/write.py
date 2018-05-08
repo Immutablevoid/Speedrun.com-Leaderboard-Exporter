@@ -1,9 +1,8 @@
 import os
-import config as cfg
 
-def WriteFile_SL(dict_SortedNames):
+def WriteFile_SL(dict_SortedNames, game, category):
 	path = os.getcwd()
-	filename = '%s_%s' % (cfg.game, cfg.category)
+	filename = '%s_%s' % (game, category)
 	
 	file = '%s\\exports\\%s.txt' % (path, filename)
 	
@@ -15,9 +14,9 @@ def WriteFile_SL(dict_SortedNames):
 			f.write('%s\n' % str(var))
 	print('\nExport Complete!\n')
 	
-def WriteFile_UL(userdata):
+def WriteFile_UL(userdata, user):
 	path = os.getcwd()
-	filename = '%s_export' % (cfg.user)
+	filename = '%s_export' % (user)
 	
 	file = '%s\\exports\\%s.txt' % (path, filename)
 	

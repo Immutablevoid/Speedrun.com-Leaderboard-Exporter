@@ -2,6 +2,33 @@ import urllib.request
 import json
 import os
 
+def VariableIDtoName(parentvariableID):
+	while True:
+		# Read game name
+		
+		Variables = dict()
+		varList = str()
+		
+		try:
+			variableID_url = 'https://www.speedrun.com/api/v1/variables/%s' % parentvariableID
+			response = urllib.request.urlopen(variableID_url).read()
+			obj = str(response, 'utf-8')
+			data = json.loads(obj)
+
+			parentName = data['data']['name']
+			count = 1
+			for item in data['data']['values']['choices']:
+				varList += data['data']['values']['choices'][item] + '\n'
+				count += 1
+			Variables[parentName] = varList
+			print(Variables)
+			os.system('pause')
+			return childVariables
+		except (NameError, urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as e:
+			print("Parent Variable ID Error...\n", e)
+			os.system('pause')
+			continue
+
 def IDtoGame(game_id):
 	while True:
 		# Read game name
