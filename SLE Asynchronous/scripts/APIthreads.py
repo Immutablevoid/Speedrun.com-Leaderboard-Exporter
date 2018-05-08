@@ -1,6 +1,6 @@
 import threading
-import gevent.monkey
 from gevent.pool import Pool
+import gevent.monkey
 from scripts import converters as conv
 
 dict_Names = dict()
@@ -36,6 +36,7 @@ def IDThread(dict_ID):
 	return dict_Names
 
 def UserThread(game, category, runtime, platform, region, place, emulated, count):
+	gevent.monkey.patch_all()
 	pool = gevent.pool.Pool()
 	for i in range(1, count):
 		pool.spawn(getGame, i, game[i])
