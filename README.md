@@ -20,6 +20,33 @@ For more information about query types, check it out [here](https://github.com/s
 
 More information can be found by looking into the speedrun.com API, which can be found [here](https://github.com/speedruncomorg/api).
 
+## Using Queries
+
+As you will see within the config file, there is a query option. By doing some [simple research here](https://github.com/speedruncomorg/api/blob/master/version1/runs.md#get-runs) and [here especially](https://github.com/speedruncomorg/api/blob/master/version1/leaderboards.md#embeds), you can filter things out!
+
+On top of this, there are variables, which are a little more complex. Some speedrun categories, such as the SM64 16 Star category, has several 'variables'. On this leaderboard in particular, there are 3 choices for 'Platform'. That is, Platform can be N64, VC, or EMU. If you wish to filter N64 runs ONLY, you can add the variable to the query.
+
+Adding to the query is simple. Assume you wish to filter out all Emulator runs. Do do so, in the query section of the config file:
+```
+query = '?emulators=False'
+```
+If you also wish to limit this to the top ten, you can do so by:
+```
+query = '?emulators=False&top=10'
+```
+
+Variables work the same, although slightly more complex. Within the program, there is an option to search for variables. This is based off the game within the config file. It will then return a list of, what I call, 'Parent' varibles. From before, 'Platform' would be the parent variable, and the child variables would be 'N64', 'VC', and 'EMU'.
+
+Once you run the script, you will need to copy the *VARIABLE IDs*, which are conveniantly enclosed in parenthesis.
+Once you have you parent and child IDs, throw them into the query as followed:
+```
+query = '?var-{PARENT ID}={CHILD ID}'
+```
+To give a complex example, let's say you wanted the top 10 N64 runs of SM64 0 Star. The query would be as followed:
+```
+query = '?top=10&var-e8m7em86=9qj7z0oq'
+```
+
 ## Once exported
 
 Once the script is completed, you will have a .txt file with each line containing something similar to [these](https://github.com/TimeTravelPenguin/Speedrun.com-Leaderboard-Exporter/blob/master/ExampleFiles)
