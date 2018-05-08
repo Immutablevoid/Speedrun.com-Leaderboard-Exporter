@@ -16,4 +16,4 @@ category = 'any'
 # So this filters all runs for ONLY EMU Platform runs
 
 # For no filter, query = ''
-query = '?emulators=false'
+query = '?emulated=False&var-68km3w4l=zqoyz021'
