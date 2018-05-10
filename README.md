@@ -3,6 +3,8 @@
 SLE is a program that exports basic speedrun.com leaderboard information for data analysis.
 It helps to aid in the documentation of speedruns at a given time from speedrun.com
 
+Important Note: SLE currently does **NOT** list all usernames for speedruns where more than one user participates. SLE will export the first user per run.
+
 ## How to use
 
 To export a speedrun's leaderboard from speedrun.com, simply edit the config file, run the program, and click the appropriate prompts.
