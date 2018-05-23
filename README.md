@@ -68,8 +68,8 @@ As of the current build, it has the following system requirements:
 
 ## Minor note
 
-Some leaderboards have 'subcategories', filtered by things called 'variables'
-At current, my program cannot filter these (easily), and there will be better managment for these in the future.
+Some leaderboards have 'subcategories', filtered by things called 'variables'.
+At current, my program cannot filter these (easily) automatically, but there is a helpful variable search tool built in, so you can add a variable querey in the config.py file.
 
 Some exmples are:
 * Super Mario 64 - 16 star: N64, EMU, VC
