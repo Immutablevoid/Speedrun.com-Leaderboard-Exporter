@@ -1,3 +1,5 @@
+Import note: a new version is in development for Win10 platforms. This version was poorly written, and uses threading rather than using the full extend of the speedrun.com API. You can follow the repository here: https://github.com/TimeTravelPenguin/SRCom-Leaderboard-Downloader
+
 # Speedrun.com Leaderboard Exporter (SLE)
 
 SLE is a program that exports basic speedrun.com leaderboard information for data analysis.
