@@ -1,10 +1,11 @@
 import os
+FILETYPE = 'csv'
 
 def WriteFile_SL(dict_SortedNames, game, category):
 	path = os.getcwd()
 	filename = '%s_%s' % (game, category)
 	
-	file = '%s\\exports\\%s.txt' % (path, filename)
+	file = ('%s\\exports\\%s.' + FILETYPE) % (path, filename)
 	
 	print()
 	

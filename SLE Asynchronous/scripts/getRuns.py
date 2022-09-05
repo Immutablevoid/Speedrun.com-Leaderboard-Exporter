@@ -110,7 +110,7 @@ def SpeedrunLeaderboard(game, category, query):
 	# Load API
 	api = apiConnect.SpeedrunLeaderboard(game, category, query)
 
-	dict_ID, dict_Guest, dict_Place, dict_Time = getSL(api)
+	dict_ID, dict_Guest, dict_Place, dict_Time, dict_Link = getSL(api)
 	
 	max_runs = len(api['data']['runs'])
 	
@@ -118,7 +118,7 @@ def SpeedrunLeaderboard(game, category, query):
 	names = APIthreads.IDThread(dict_ID)
 	
 	for key, value in names.items():
-		dict_Users[key] = '%s\t%s\t%s' % (dict_Place[key], value, dict_Time[key])
+		dict_Users[key] = '%s,%s,%s,%s' % (dict_Place[key], value, dict_Time[key], dict_Link[key])
 
 	for key, value in sorted(chain(dict_Users.items(), dict_Guest.items())):
 		dict_SortedNames[key] = value
@@ -132,26 +132,30 @@ def getSL(api):
 	dict_Guest = dict()
 	dict_Place = dict()
 	dict_Time = dict()
+	dict_Link = dict()
 	
 	for item in api['data']['runs']:
+		print(item)
 		place = item['place']
 		runtime = item['run']['times']['primary_t']
+		link = item['run']['videos']['links'][0]['uri']
 		
 		try:
 			username = item['run']['players'][0]['id']
 			dict_ID[counter] = '%s' % (username)
 			dict_Place[counter] = place
-			dict_Time[counter] = runtime
+			dict_Time[counter] = str(datetime.timedelta(0, runtime))
+			dict_Link[counter] = link
 		except KeyError:
 			username = item['run']['players'][0]['name']
-			dict_Guest[counter] = '%s\t%s\t%s' % (place, username, runtime)
+			dict_Guest[counter] = '%s,%s,%s,%s' % (place, username, runtime, link)
 		except (TimeoutError, urllib.error.URLError, urllib.error.HTTPError) as error:
 			print("Error...", error)
 			errors += 1
 			continue
 		counter += 1
 	
-	return dict_ID, dict_Guest, dict_Place, dict_Time
+	return dict_ID, dict_Guest, dict_Place, dict_Time, dict_Link
 		
 
 def UserSpeedruns(user):

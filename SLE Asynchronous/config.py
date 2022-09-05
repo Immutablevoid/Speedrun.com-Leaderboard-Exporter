@@ -3,8 +3,8 @@
 # use either username or speedrun.com user ID:
 # user = 'y8dwlrgj' or 'timetravelpenguin'
 user = 'timetravelpenguin'
-game = 'smo'
-category = 'any'
+game = 'titan_souls'
+category = 'Any_Beat_the_Game'
 
 # Query should be in form: '?conditionA=1&condintionB=2&conditionC=3'
 # For more query filter options, visit:
@@ -16,4 +16,4 @@ category = 'any'
 # So this filters all runs for ONLY EMU Platform runs
 
 # For no filter, query = ''
-query = '?emulated=False&var-68km3w4l=zqoyz021'
+query = '?var-onvz4wlm=jqzg6ggl'
